@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { hc } from "hono/client";
 import emails from "./email";
 import { cors } from "hono/cors";
+import posts from "./posts";
 
 /* -------------------------------------------------------------------------- */
 /*                                     Middleware                             */
@@ -20,6 +21,7 @@ app.use("/api/*", cors());
 
 const routes = app
   .route("/emails", emails)
+  .route("/posts", posts)
   .get("/", (c) => c.json({ message: "server is healthy" }));
 
 /* -------------------------------------------------------------------------- */

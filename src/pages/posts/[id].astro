@@ -1,0 +1,22 @@
+---
+export const prerender = true;
+import api from "@/lib/api/client";
+
+export async function getStaticPaths() {
+    const response = await api.posts.$get();
+    const data = await response.json();
+    return data.posts.map((post) => {
+        return {
+            params: { id: post.id },
+            props: { post },
+        };
+    });
+}
+const { id } = Astro.params;
+const { post } = Astro.props;
+---
+
+<body>
+    <h1>{id}: {post.title}</h1>
+    <h2>Category: {post.category}</h2>
+</body>
